@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System Converter - Dark Mode</title>
+    <style>
+        :root {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #2e2e2e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #1e1e1e;
+            --accent-primary: #bb86fc;
+            --accent-secondary: #a56efa;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        h1 {
+            color: var(--accent-primary);
+        }
+        label, input, select, button {
+            display: block;
+            margin-bottom: 15px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--accent-primary);
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23bb86fc" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 98%;
+            background-position-y: 50%;
+        }
+        button {
+            background-color: var(--accent-primary);
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: var(--accent-secondary);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border: 1px solid var(--accent-primary);
+            border-radius: 8px;
+            background-color: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body>
+    <h1>Number System Converter</h1>
+    <label for="number">Number:</label>
+    <input type="text" id="number" required>
+    
+    <label for="fromBase">From Base:</label>
+    <select id="fromBase">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10" selected>10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+    </select>
+    
+    <label for="toBase">To Base:</label>
+    <select id="toBase">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+    </select>
+    
+    <button onclick="convertNumber()">Convert</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function decimalToBase(number, base) {
+            if (base === 1) {
+                return '1'.repeat(number);
+            } else if (base >= 2 && base <= 36) {
+                const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                if (number === 0) return "0";
+                let result = "";
+                while (number > 0) {
+                    result = digits[number % base] + result;
+                    number = Math.floor(number / base);
+                }
+                return result;
+            } else {
+                throw new Error("Base must be between 1 and 36");
+            }
+        }
+
+        function baseToDecimal(number, base) {
+            if (base === 1) {
+                return number.length;
+            } else if (base >= 2 && base <= 36) {
+                return parseInt(number, base);
+            } else {
+                throw new Error("Base must be between 1 and 36");
+            }
+        }
+
+        function convertNumber() {
+            const number = document.getElementById('number').value;
+            const fromBase = parseInt(document.getElementById('fromBase').value);
+            const toBase = parseInt(document.getElementById('toBase').value);
+            const resultDiv = document.getElementById('result');
+
+            try {
+                let decimal;
+                if (fromBase !== 10) {
+                    decimal = baseToDecimal(number, fromBase);
+                } else {
+                    decimal = parseInt(number);
+                }
+
+                const result = decimalToBase(decimal, toBase);
+                resultDiv.textContent = `${number} (base ${fromBase}) = ${result} (base ${toBase})`;
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
