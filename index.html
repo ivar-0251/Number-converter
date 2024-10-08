@@ -12,6 +12,7 @@
             --text-secondary: #1e1e1e;
             --accent-primary: #091be9;
             --accent-secondary: #045ff1;
+            --card-shadow: rgba(187, 134, 252, 0.3);
         }
 
         body {
@@ -52,7 +53,7 @@
         }
 
         .content {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 2rem auto;
             padding: 0 1rem;
             text-align: center;
@@ -66,27 +67,49 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .tool-card {
             background-color: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 1rem;
-            width: 200px;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 250px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 4px 6px var(--card-shadow);
         }
 
         .tool-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px var(--card-shadow);
+        }
+
+        .tool-card h2 {
+            color: var(--accent-primary);
+            margin-top: 0;
+        }
+
+        .tool-card p {
+            margin: 1rem 0;
         }
 
         .tool-card a {
-            color: var(--accent-primary);
+            display: inline-block;
+            color: var(--bg-primary);
+            background-color: var(--accent-primary);
             text-decoration: none;
             font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card a:hover {
+            background-color: var(--accent-secondary);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -105,10 +128,15 @@
         <div class="tool-list">
             <div class="tool-card">
                 <h2>Number Converter</h2>
-                <p>Convert numbers between different bases.</p>
+                <p>Convert numbers between different bases with ease. Supports binary, decimal, hexadecimal, and more!</p>
                 <a href="/numbers">Go to Number Converter</a>
             </div>
             <!-- Add more tool cards here as you develop more tools -->
+            <div class="tool-card">
+                <h2>Coming Soon</h2>
+                <p>We're working on new exciting tools. Stay tuned for updates!</p>
+                <a href="#" style="cursor: not-allowed; opacity: 0.7;">Coming Soon</a>
+            </div>
         </div>
     </div>
 </body>
